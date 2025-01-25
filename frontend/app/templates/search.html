@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="search-container">
+    <h1>Search Results for "{{ query }}"</h1>
+
+    {% if not categories and not documents %}
+    <div class="no-results">
+        <p>No results found for "{{ query }}"</p>
+        <p>Try different keywords or check your spelling</p>
+    </div>
+    {% endif %}
+
+    {% if categories %}
+    <div class="search-section">
+        <h2>Categories</h2>
+        <div class="search-results">
+            {% for category in categories %}
+            <div class="search-result">
+                <h3>
+                    <a href="{{ url_for('main.category', id=category.id) }}">
+                        <i class="{{ category.icon }}"></i>
+                        {{ category.name|highlight(query)|safe }}
+                    </a>
+                </h3>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    {% if documents %}
+    <div class="search-section">
+        <h2>Documents</h2>
+        <div class="search-results">
+            {% for document in documents %}
+            <div class="search-result">
+                <h3>
+                    <a href="{{ url_for('main.document', id=document.id) }}">
+                        <i class="fas fa-file-alt"></i>
+                        {{ document.title|highlight(query)|safe }}
+                    </a>
+                </h3>
+                <p>{{ document.content|preview(200)|highlight(query)|safe }}</p>
+                {% if document.category %}
+                <div class="meta">
+                    <span class="category-tag">
+                        <i class="{{ document.category.icon }}"></i>
+                        {{ document.category.name }}
+                    </span>
+                    <span class="date">{{ document.updated_at|datetime }}</span>
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

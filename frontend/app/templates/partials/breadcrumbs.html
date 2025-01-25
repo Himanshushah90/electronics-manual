@@ -1,0 +1,25 @@
+<div class="breadcrumbs">
+    <a href="{{ url_for('main.index') }}"><i class="fas fa-home"></i> Home</a>
+    
+    {% if category %}
+        <i class="fas fa-chevron-right"></i>
+        {% if category.parent %}
+            <a href="{{ url_for('main.category', id=category.parent.id) }}">
+                {{ category.parent.name }}
+            </a>
+            <i class="fas fa-chevron-right"></i>
+        {% endif %}
+        <span>{{ category.name }}</span>
+    {% endif %}
+
+    {% if document %}
+        {% if document.category %}
+            <i class="fas fa-chevron-right"></i>
+            <a href="{{ url_for('main.category', id=document.category.id) }}">
+                {{ document.category.name }}
+            </a>
+        {% endif %}
+        <i class="fas fa-chevron-right"></i>
+        <span>{{ document.title }}</span>
+    {% endif %}
+</div>

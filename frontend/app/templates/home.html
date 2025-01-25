@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="home-container">
+    <h1><i class="fas fa-microchip"></i> SVC Electronics E-Manual</h1>
+    <p class="welcome-text">Welcome to the SVC Electronics E-Manual documentation.</p>
+    
+    <div class="dashboard-section">
+        <h2><i class="fas fa-star"></i> Featured Categories</h2>
+        <div class="quick-links">
+            {% for category in featured_categories %}
+            <a href="{{ url_for('main.category', id=category.id) }}" class="quick-link">
+                <i class="{{ category.icon }}"></i>
+                <div>
+                    <h3>{{ category.name }}</h3>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="dashboard-section">
+        <h2><i class="fas fa-file-alt"></i> Featured Documents</h2>
+        <div class="quick-links">
+            {% for document in featured_documents %}
+            <a href="{{ url_for('main.document', id=document.id) }}" class="quick-link">
+                <i class="fas fa-file-alt"></i>
+                <div>
+                    <h3>{{ document.title }}</h3>
+                    <p>{{ document.content|preview(150) }}</p>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

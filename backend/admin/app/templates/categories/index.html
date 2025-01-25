@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="bg-white shadow rounded-lg p-6">
+    <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-bold text-gray-800">Categories</h2>
+        <a href="{{ url_for('categories.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
+            Add Category
+        </a>
+    </div>
+
+    <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200">
+            <thead>
+                <tr>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Icon</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Parent</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Show on Home</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+                {% for category in categories %}
+                <tr>
+                    <td class="px-6 py-4 whitespace-nowrap">{{ category.name }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap"><i class="{{ category.icon }}"></i></td>
+                    <td class="px-6 py-4 whitespace-nowrap">{{ category.parent_id }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">{{ "Yes" if category.show_on_home else "No" }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <a href="{{ url_for('categories.edit', id=category.id) }}" class="text-blue-600 hover:text-blue-900 mr-3">Edit</a>
+                        <form action="{{ url_for('categories.delete', id=category.id) }}" method="POST" class="inline">
+                            <button type="submit" class="text-red-600 hover:text-red-900" onclick="return confirm('Are you sure?')">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

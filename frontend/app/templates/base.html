@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVC Electronics E-Manual</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/15.0.6/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/prism.min.js"></script>
+    
+    <!-- Add MathJax -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-polyfills/0.1.43/polyfill.min.js"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+            }
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h1><img src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFLYlrdTpMyAhVCIaZo4AKzkJ4Zaf8lcMftMBCGqZP0pvNITrMigwGkj-wWWPCOggbOh0&usqp=CAU" style="width: 50px; height: 50px; border-radius: 50%;"></img> <br> SVC Electronics E-Manual</h1>
+                <div class="search-wrapper">
+                    <i class="fas fa-search"></i>
+                    <form action="{{ url_for('main.search') }}" method="GET" id="searchForm">
+                        <input type="text" 
+                               name="q" 
+                               id="searchInput" 
+                               placeholder="Search documentation..." 
+                               value="{{ request.args.get('q', '') }}"
+                               autocomplete="off">
+                    </form>
+                </div>
+            </div>
+            
+            <nav id="sidebar-nav" class="nav-section">
+                {% include 'partials/sidebar.html' %}
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="content">
+            <!-- Navigation Bar -->
+            <nav class="nav-bar">
+                <div class="nav-container">
+                    <div class="nav-left">
+                        <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                        <div class="breadcrumbs" id="breadcrumbs">
+                            <a href="{{ url_for('main.index') }}"><i class="fas fa-home"></i> Home</a>
+                            {% if category %}
+                                <i class="fas fa-chevron-right"></i>
+                                <span>{{ category.name }}</span>
+                            {% endif %}
+                            {% if document %}
+                                {% if document.category %}
+                                    <i class="fas fa-chevron-right"></i>
+                                    <a href="{{ url_for('main.category', id=document.category.id) }}">
+                                        {{ document.category.name }}
+                                    </a>
+                                {% endif %}
+                                <i class="fas fa-chevron-right"></i>
+                                <span>{{ document.title }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="nav-right">
+                        <!-- Remove back-to-top from here -->
+                    </div>
+                </div>
+            </nav>
+            
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+
+    <!-- Move back-to-top button here, outside of navbar -->
+    <button id="backToTop" class="back-to-top" aria-label="Scroll to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    
+    <!-- Add this before the closing </body> tag -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p class="made-with-love">
+                Made with <i class="heart">❤</i> by 
+                <a href="https://www.linkedin.com/in/himanshu-shah-226443257/" target="_blank" rel="noopener noreferrer">
+                    Himanshu Shah
+                </a>
+                <span class="batch">Batch of 2026</span>
+            </p>
+        </div>
+    </footer>
+</body>
+</html>

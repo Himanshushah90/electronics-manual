@@ -1,0 +1,58 @@
+# Environment Variables - cover all locations
+**/.env
+**/.env.local
+**/.env.*.local
+backend/admin/app/.env
+frontend/app/.env
+
+# But allow example env files
+!**/.env.example
+!backend/admin/.env.example
+!frontend/.env.example
+
+# Python
+**/__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+venv/
+
+# IDE specific files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Operating System
+.DS_Store
+Thumbs.db
+
+# Application specific
+**/uploads/
+*.log
+instance/
+.webassets-cache
+
+# MongoDB
+mongod.log
+*.mongodb
+
+# Temporary files
+*.tmp
+*.bak

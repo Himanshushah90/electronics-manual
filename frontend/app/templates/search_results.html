@@ -1,0 +1,65 @@
+<div class="search-results-container">
+    <h1>Search Results for "{{ query }}"</h1>
+
+    {% if not search_categories and not search_documents %}
+    <div class="no-results">
+        <p>No results found for "{{ query }}"</p>
+        <p>Try different keywords or check your spelling</p>
+    </div>
+    {% endif %}
+
+    {% if search_categories %}
+    <div class="search-section">
+        <h2>Categories</h2>
+        <div class="search-results-grid">
+            {% for category in search_categories %}
+            <div class="search-result">
+                <h3>
+                    <a href="{{ url_for('main.category', id=category.id) }}">
+                        <i class="{{ category.icon }}"></i>
+                        {{ category.name|highlight(query)|safe }}
+                    </a>
+                </h3>
+                {% if category.subcategories %}
+                <div class="subcategories">
+                    {% for sub in category.subcategories %}
+                    <a href="{{ url_for('main.category', id=sub.id) }}" class="subcategory-link">
+                        <i class="{{ sub.icon }}"></i>
+                        {{ sub.name|highlight(query)|safe }}
+                    </a>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    {% if search_documents %}
+    <div class="search-section">
+        <h2>Documents</h2>
+        <div class="search-results-grid">
+            {% for document in search_documents %}
+            <div class="search-result">
+                <h3>
+                    <a href="{{ url_for('main.document', id=document.id) }}">
+                        <i class="fas fa-file-alt"></i>
+                        {{ document.title|highlight(query)|safe }}
+                    </a>
+                </h3>
+                <p>{{ document.content|preview(200)|highlight(query)|safe }}</p>
+                {% if document.category %}
+                <div class="meta">
+                    <span class="category-tag">
+                        <i class="{{ document.category.icon }}"></i>
+                        {{ document.category.name }}
+                    </span>
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</div>

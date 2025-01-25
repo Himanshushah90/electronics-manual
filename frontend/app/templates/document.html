@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="document-container">
+    <div class="document-header">
+        <h1>{{ document.title }}</h1>
+        {% if document.category %}
+        <div class="document-meta">
+            <span class="category-tag">
+                <i class="{{ document.category.icon }}"></i>
+                {{ document.category.name }}
+            </span>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="document-content prose">
+        {{ document.content|markdown|safe }}
+    </div>
+</div>
+{% endblock %}

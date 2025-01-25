@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="category-container">
+    <div class="category-header">
+        <h1><i class="{{ category.icon }}"></i> {{ category.name }}</h1>
+    </div>
+
+    {% if category.subcategories %}
+    <div class="subcategories-section">
+        <h2>Subcategories</h2>
+        <div class="subcategories-grid">
+            {% for subcategory in category.subcategories %}
+            <a href="{{ url_for('main.category', id=subcategory.id) }}" class="subcategory-card">
+                <i class="{{ subcategory.icon }}"></i>
+                <h3>{{ subcategory.name }}</h3>
+                {% if subcategory.documents %}
+                <span class="document-count">{{ subcategory.documents|length }} documents</span>
+                {% endif %}
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    {% if category.documents %}
+    <div class="documents-section">
+        <h2>Documents</h2>
+        <div class="documents-grid">
+            {% for document in category.documents %}
+            <div class="document-card">
+                <div class="document-icon">
+                    <i class="fas fa-file-alt"></i>
+                </div>
+                <div class="document-info">
+                    <h3>
+                        <a href="{{ url_for('main.document', id=document.id) }}">
+                            {{ document.title }}
+                        </a>
+                    </h3>
+                    <p>{{ document.content|preview(100) }}</p>
+                </div>
+                <div class="document-meta">
+                    <span class="date">{{ document.updated_at|datetime }}</span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    {% if not category.subcategories and not category.documents %}
+    <div class="empty-state">
+        <p>No content in this category yet.</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

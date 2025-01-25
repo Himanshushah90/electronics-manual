@@ -1,0 +1,44 @@
+{% macro render_category(category, level=0) %}
+<div class="nav-category" data-level="{{ level }}">
+    <div class="category-header">
+        <h2>
+            {% if category.documents or category.subcategories %}
+            <i class="category-toggle fas fa-chevron-right"></i>
+            {% endif %}
+            <i class="{{ category.icon }}"></i>
+            <span class="category-name">{{ category.name }}</span>
+        </h2>
+    </div>
+    {% if category.documents or category.subcategories %}
+    <div class="category-content" id="category-{{ category.id }}">
+        {% if category.documents %}
+        <div class="documents-group">
+            {% for document in category.documents %}
+            <div class="doc-item">
+                <a href="{{ url_for('main.document', id=document.id) }}" 
+                   {% if request.path == url_for('main.document', id=document.id) %}class="active"{% endif %}>
+                    <i class="fas fa-file-alt"></i>
+                    <span>{{ document.title }}</span>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        
+        {% if category.subcategories %}
+        <div class="subcategories-group">
+            {% for subcategory in category.subcategories %}
+                {{ render_category(subcategory, level + 1) }}
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+    {% endif %}
+</div>
+{% endmacro %}
+
+<div class="sidebar-nav">
+    {% for category in categories if not category.parent_id %}
+        {{ render_category(category) }}
+    {% endfor %}
+</div>

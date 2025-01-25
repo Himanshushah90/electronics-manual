@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="document-container">
+    <div class="document-header">
+        <h1>{{ document.title }}</h1>
+        {% if document.category %}
+        <div class="document-meta">
+            <span class="category-tag">
+                <i class="{{ document.category.icon }}"></i>
+                {{ document.category.name }}
+            </span>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="document-content prose">
+        {{ document.content|markdown }}
+    </div>
+
+    {% if document.file_url %}
+    <div class="document-attachment">
+        <h3>Attachment</h3>
+        <a href="{{ url_for('documents.download_file', filename=document.file_url) }}" class="attachment-link">
+            <i class="fas fa-download"></i>
+            Download Attachment
+        </a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
