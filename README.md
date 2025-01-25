@@ -6,7 +6,7 @@ A web application for electronics documentation with admin panel.
 
 1. Clone the repository
 ```bash
-git clone https://github.com/yourusername/electronics-manual.git
+git clone https://github.com/Himanshushah90/electronics-manual.git
 cd electronics-manual
 ```
 
