@@ -32,12 +32,10 @@ decorator==5.1.1
 distro==1.9.0
 django-cors-headers==3.13.0
 dnspython==2.7.0
-docker==7.0.0
 docx2md==1.0.1
 emoji==2.14.1
 et-xmlfile==1.1.0
 etelemetry==0.3.1
-executing==2.0.1
 eyantra-autoeval==0.1.47
 fastjsonschema==2.19.1
 filelock==3.13.1
@@ -58,7 +56,6 @@ gunicorn==23.0.0
 httplib2==0.22.0
 huggingface-hub==0.20.3
 hyperlink==21.0.0
-idna==2.10
 incremental==22.10.0
 ipykernel==6.28.0
 ipython==8.20.0
@@ -132,12 +129,9 @@ python-magic==0.4.27
 python-pptx==0.6.23
 pytweening==1.2.0
 pytz==2023.3.post1
-pyxnat==1.6.2
 PyYAML==6.0.1
 pyzmq==25.1.2
 qrcode==7.4.2
-quran==1.0.0
-rdflib==6.3.2
 referencing==0.32.1
 regex==2023.12.25
 reportlab==4.2.5
