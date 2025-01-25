@@ -39,6 +39,16 @@ venv/
 *.swp
 *.swo
 
+# Node
+**/node_modules/
+**/npm-debug.log
+**/yarn-debug.log
+**/yarn-error.log
+**/npm
+**/yarn
+**/pnp
+**/pnp.js
+
 # Operating System
 .DS_Store
 Thumbs.db
