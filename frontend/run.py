@@ -4,4 +4,4 @@ app = create_app()
 
 if __name__ == '__main__':
     # Use a different port than the backend
-    app.run()
+    app.run(port=5000, debug=True)
